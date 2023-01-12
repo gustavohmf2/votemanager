@@ -1,6 +1,6 @@
-package com.youvotematter.votemanager.services.vos;
+package com.youvotematter.votemanager.service.vos;
 
-import com.youvotematter.votemanager.models.Topic;
+import com.youvotematter.votemanager.model.Topic;
 import lombok.Getter;
 
 import java.io.Serial;

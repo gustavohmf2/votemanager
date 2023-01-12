@@ -1,4 +1,4 @@
-package com.youvotematter.votemanager.exceptions;
+package com.youvotematter.votemanager.exception;
 
 public class SessionVoteException extends Throwable {
     public SessionVoteException(final String value) {

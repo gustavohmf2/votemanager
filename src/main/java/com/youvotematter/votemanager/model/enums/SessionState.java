@@ -1,7 +1,6 @@
-package com.youvotematter.votemanager.models.enums;
+package com.youvotematter.votemanager.model.enums;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 public enum SessionState {
 

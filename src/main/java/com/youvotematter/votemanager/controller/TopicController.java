@@ -1,7 +1,7 @@
-package com.youvotematter.votemanager.controllers;
+package com.youvotematter.votemanager.controller;
 
-import com.youvotematter.votemanager.services.TopicService;
-import com.youvotematter.votemanager.services.vos.TopicVO;
+import com.youvotematter.votemanager.service.TopicService;
+import com.youvotematter.votemanager.service.vos.TopicVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

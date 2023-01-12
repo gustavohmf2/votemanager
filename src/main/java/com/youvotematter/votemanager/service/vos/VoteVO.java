@@ -1,4 +1,4 @@
-package com.youvotematter.votemanager.services.vos;
+package com.youvotematter.votemanager.service.vos;
 
 import lombok.Getter;
 

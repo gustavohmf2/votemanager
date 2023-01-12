@@ -1,8 +1,8 @@
-package com.youvotematter.votemanager.services;
+package com.youvotematter.votemanager.service;
 
-import com.youvotematter.votemanager.models.Topic;
-import com.youvotematter.votemanager.repositories.TopicRepository;
-import com.youvotematter.votemanager.services.vos.TopicVO;
+import com.youvotematter.votemanager.model.Topic;
+import com.youvotematter.votemanager.repository.TopicRepository;
+import com.youvotematter.votemanager.service.vos.TopicVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

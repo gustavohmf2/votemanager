@@ -1,4 +1,4 @@
-package com.youvotematter.votemanager.models;
+package com.youvotematter.votemanager.model;
 
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;

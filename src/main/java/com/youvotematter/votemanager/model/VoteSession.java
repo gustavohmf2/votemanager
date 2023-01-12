@@ -1,9 +1,8 @@
-package com.youvotematter.votemanager.models;
+package com.youvotematter.votemanager.model;
 
-import com.youvotematter.votemanager.models.enums.SessionState;
+import com.youvotematter.votemanager.model.enums.SessionState;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;

@@ -1,11 +1,11 @@
-package com.youvotematter.votemanager.controllers;
+package com.youvotematter.votemanager.controller;
 
-import com.youvotematter.votemanager.exceptions.InvalidVoteException;
-import com.youvotematter.votemanager.exceptions.SessionVoteException;
-import com.youvotematter.votemanager.services.VoteSessionService;
-import com.youvotematter.votemanager.services.vos.VoteSessionFinishVO;
-import com.youvotematter.votemanager.services.vos.VoteSessionVO;
-import com.youvotematter.votemanager.services.vos.VoteVO;
+import com.youvotematter.votemanager.exception.InvalidVoteException;
+import com.youvotematter.votemanager.exception.SessionVoteException;
+import com.youvotematter.votemanager.service.VoteSessionService;
+import com.youvotematter.votemanager.service.vos.VoteSessionFinishVO;
+import com.youvotematter.votemanager.service.vos.VoteSessionVO;
+import com.youvotematter.votemanager.service.vos.VoteVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,6 @@
-package com.youvotematter.votemanager.services.vos;
+package com.youvotematter.votemanager.service.vos;
 
-import com.youvotematter.votemanager.models.enums.SessionState;
+import com.youvotematter.votemanager.model.enums.SessionState;
 import lombok.Getter;
 
 import java.io.Serial;

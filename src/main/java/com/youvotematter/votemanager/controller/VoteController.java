@@ -1,4 +1,4 @@
-package com.youvotematter.votemanager.controllers;
+package com.youvotematter.votemanager.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

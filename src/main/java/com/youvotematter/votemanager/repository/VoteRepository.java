@@ -1,6 +1,6 @@
-package com.youvotematter.votemanager.repositories;
+package com.youvotematter.votemanager.repository;
 
-import com.youvotematter.votemanager.models.Vote;
+import com.youvotematter.votemanager.model.Vote;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
