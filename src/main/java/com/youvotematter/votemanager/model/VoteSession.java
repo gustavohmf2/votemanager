@@ -11,6 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -24,15 +25,12 @@ public class VoteSession {
     private Long id;
     @Nonnull
     private String title;
-
     @OneToOne
     private Topic topic;
     @Nonnull
-    @ColumnDefault(value = "2")
-    private SessionState sessionState;
+    private SessionState sessionState = SessionState.OPEN;
     @Nonnull
-    @ColumnDefault(value = "1")
-    private Float duration;
+    private Float duration = 1F;
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "voteSessionId")
     private List<Vote> votes;
@@ -44,7 +42,11 @@ public class VoteSession {
     public VoteSession(final String title, final Topic topic, final SessionState sessionState, final Float duration) {
         this.title = title;
         this.topic = topic;
-        this.sessionState = sessionState;
-        this.duration = duration;
+        if(Objects.nonNull(sessionState)) {
+            this.sessionState = sessionState;
+        }
+        if(Objects.nonNull(duration)) {
+            this.duration = duration;
+        }
     }
 }

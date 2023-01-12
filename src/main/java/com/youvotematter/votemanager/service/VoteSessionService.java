@@ -2,7 +2,7 @@ package com.youvotematter.votemanager.service;
 
 import com.youvotematter.votemanager.exception.InvalidVoteException;
 import com.youvotematter.votemanager.exception.SessionVoteException;
-import com.youvotematter.votemanager.exception.VoteSessionExceptio;
+import com.youvotematter.votemanager.exception.VoteSessionException;
 import com.youvotematter.votemanager.model.Topic;
 import com.youvotematter.votemanager.model.Vote;
 import com.youvotematter.votemanager.model.VoteSession;
@@ -50,34 +50,34 @@ public class VoteSessionService {
         return Optional.of(allVotes);
     }
 
-    public void collect(final Long voteSessionId, final VoteVO voteVO) throws InvalidVoteException {
+    public void collectVote(final Long voteSessionId, final VoteVO voteVO) throws InvalidVoteException {
         log.info("New vote to contabilize, voteSessionId={}, associatedId={}", voteSessionId, voteVO.getAssociatedId());
         final VoteSession voteSession = findById(voteSessionId);
         try {
             validateSession(voteSession, voteVO);
             addVote(voteSession, new Vote(voteVO.getAssociatedId(), voteVO.isChoice()));
-        } catch (final Exception | VoteSessionExceptio exception) {
+        } catch (final Exception | VoteSessionException exception) {
             throw new InvalidVoteException("Vote contain error");
         }
     }
 
-    private void validateSession(VoteSession voteSession, final VoteVO voteVO) throws VoteSessionExceptio {
+    private void validateSession(VoteSession voteSession, final VoteVO voteVO) throws VoteSessionException {
         log.info("Validate new vote, title={}", voteSession.getTitle());
         if(SessionState.CLOSED.equals(voteSession.getSessionState())){
             log.error("Vote session is closed, title={}", voteSession.getTitle());
-            throw new VoteSessionExceptio("Vote session is Closed");
+            throw new VoteSessionException("Vote session is Closed");
         }
 
-        Duration durationSession = Duration.between(LocalDateTime.now(), voteSession.getCreatedAt());
+        Duration durationSession = Duration.between(voteSession.getCreatedAt(), LocalDateTime.now());
         if(durationSession.toMinutes() >= voteSession.getDuration()){
             log.error("Vote session is closed, title={}, dateCreated={}", voteSession.getTitle(), voteSession.getCreatedAt());
-            throw new VoteSessionExceptio("Vote session is timeout");
+            throw new VoteSessionException("Vote session is timeout");
         }
 
         VoteSession voteAlreadyContabilized = voteSessionRepository.findByVotes_AssociatedId(voteVO.getAssociatedId());
         if(voteAlreadyContabilized != null) {
             log.error("Vote already contabilized, title={}, associatedId={}", voteSession.getTitle(), voteVO.getAssociatedId());
-            throw new VoteSessionExceptio("Vote already contabilized");
+            throw new VoteSessionException("Vote already contabilized");
         }
     }
 
@@ -86,28 +86,27 @@ public class VoteSessionService {
         voteSessionRepository.save(voteSession);
     }
 
-    public Optional<List<VotesSessionVO>> votesOfSession(Long voteSessionId) {
-        final List<VotesSessionVO> allVotes = voteSessionRepository.findById(voteSessionId).stream()
+    public Optional<VotesSessionVO> votesOfSession(Long voteSessionId) {
+        return voteSessionRepository.findById(voteSessionId).stream()
                 .map(voteSession -> VotesSessionVO.of(voteSession))
-                .toList();
-        return Optional.of(allVotes);
+                .findFirst();
     }
 
     public void changeStatus(Long voteSessionId, VoteSessionFinishVO voteSessionFinishVO) throws SessionVoteException {
         final VoteSession voteSession = findById(voteSessionId);
         if(isNotValidChange(voteSessionFinishVO, voteSession)){
             log.error("Vote session already closed, title={}, status={}", voteSession.getTitle(), voteSession.getSessionState());
-            throw new SessionVoteException("Session already closed");
+            throw new SessionVoteException("Session already in same state");
         }
         voteSession.setSessionState(voteSessionFinishVO.getSessionState());
         voteSessionRepository.save(voteSession);
     }
 
     private static boolean isNotValidChange(VoteSessionFinishVO voteSessionFinishVO, VoteSession voteSession) {
-        if(Objects.isNull(voteSession.getSessionState())&& Objects.isNull(voteSession.getSessionState())) {
+        if(Objects.isNull(voteSession.getSessionState()) && Objects.isNull(voteSessionFinishVO.getSessionState())) {
             return true;
         }
-        return !voteSession.getSessionState().equals(voteSessionFinishVO.getSessionState());
+        return voteSession.getSessionState().equals(voteSessionFinishVO.getSessionState());
     }
 
     private VoteSession findById(Long voteSessionId) {

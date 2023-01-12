@@ -36,7 +36,7 @@ public class VoteSessionController {
     public ResponseEntity collect(@PathVariable("voteSessionId") final Long voteSessionId,
                                   @RequestBody final VoteVO voteVO) {
         try {
-            voteSessionService.collect(voteSessionId, voteVO);
+            voteSessionService.collectVote(voteSessionId, voteVO);
             return ResponseEntity.noContent().build();
         }  catch (InvalidVoteException e) {
             return ResponseEntity.badRequest().body("Fail to acount vote");

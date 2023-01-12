@@ -1,5 +1,8 @@
 package com.youvotematter.votemanager.service.vos;
 
+import com.youvotematter.votemanager.model.Vote;
+import com.youvotematter.votemanager.model.VoteSession;
+import com.youvotematter.votemanager.model.enums.SessionState;
 import lombok.Getter;
 
 import java.io.Serial;
@@ -15,4 +18,13 @@ public class VoteVO implements Serializable {
     private Long associatedId;
 
     private boolean choice;
+
+    private VoteVO(final Long sessionId, final Long associatedId, final boolean choice) {
+        this.sessionId = sessionId;
+        this.associatedId = associatedId;
+        this.choice = choice;
+    }
+    public static VoteVO of(final Vote vote) {
+        return new VoteVO(vote.getId(), vote.getAssociatedId(), vote.isChoice());
+    }
 }

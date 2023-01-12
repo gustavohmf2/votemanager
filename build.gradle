@@ -29,31 +29,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-
-/*swagger {
-	apiSource {
-		springmvc = true
-		locations = 'eu.balev.demo.swagger'
-		basePath = '/api'
-		info {
-			title = 'Vote Session Manger API'
-			description = 'You vote matter'
-			version = '1.0'
-			contact {
-				email = 'youvote@votemanager.com'
-				name = 'Jose'
-			}
-			license {
-				url = 'http://www.apache.org/licenses/LICENSE-2.0.html'
-				name = 'Apache 2.0'
-			}
-		}
-		swaggerDirectory = "${project.rootDir}/generated/swagger-json"
-		swaggerApiReader = 'com.github.kongchen.swagger.docgen.reader.SpringMvcApiReader'
-		modelConverters = [ 'io.swagger.validator.BeanValidator' ]
-	}
-}*/
-
 tasks.named('test') {
 	useJUnitPlatform()
 }
